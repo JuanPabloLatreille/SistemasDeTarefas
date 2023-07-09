@@ -34,14 +34,14 @@ namespace SistemasDeTarefas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UsuarioModel>> AddUsuario([FromBody] UsuarioDTO usuarioModel)
+        public async Task<ActionResult<UsuarioDTO>> AddUsuario([FromBody] UsuarioDTO usuarioModel)
         {
             var usuario = await _usuarioRepository.Add(usuarioModel);
             return Ok(usuario);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuarioModel>> UpdateUsuario([FromBody] UsuarioDTO usuarioModel, int id)
+        public async Task<ActionResult<UsuarioDTO>> UpdateUsuario([FromBody] UsuarioDTO usuarioModel, [FromRoute] int id)
         {
             var usuario = await _usuarioRepository.Update(usuarioModel, id);
             return Ok(usuario);
