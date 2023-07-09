@@ -9,6 +9,7 @@ namespace SistemasDeTarefas.Mappings
         public EntitiesToDTOMappingProfile()
         {
             CreateMap<UsuarioModel, UsuarioDTO>().ReverseMap();
+            CreateMap<TarefaModel, TarefaDTO>().ReverseMap();
         }
     }
 }
