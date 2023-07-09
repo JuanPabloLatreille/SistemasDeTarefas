@@ -1,6 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SistemasDeTarefas.Data;
 using SistemasDeTarefas.Models;
+using SistemasDeTarefas.Models.DTOs;
 using SistemasDeTarefas.Repositories.Interfaces;
 
 namespace SistemasDeTarefas.Repositories
@@ -8,9 +10,11 @@ namespace SistemasDeTarefas.Repositories
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly AppDbContext _context;
-        public UsuarioRepository(AppDbContext context)
+        private readonly IMapper _mapper;
+        public UsuarioRepository(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public async Task<List<UsuarioModel>> GetAllUsuarios()
         {
@@ -29,14 +33,18 @@ namespace SistemasDeTarefas.Repositories
             return usuarioId;
         }
 
-        public async Task<UsuarioModel> Add(UsuarioModel usuario)
+        public async Task<UsuarioDTO> Add(UsuarioDTO usuarioDTO)
         {
-            await _context.Usuarios.AddAsync(usuario);
+            var usuarioEntidade = _mapper.Map<UsuarioModel>(usuarioDTO);
+
+            await _context.Usuarios.AddAsync(usuarioEntidade);
             await _context.SaveChangesAsync();
+
+            var usuario = _mapper.Map<UsuarioDTO>(usuarioEntidade);
 
             return usuario;
         }
-        public async Task<UsuarioModel> Update(UsuarioModel usuario, int id)
+        public async Task<UsuarioDTO> Update(UsuarioDTO usuario, int id)
         {
             var usuarioId = await GetById(id);
 
@@ -51,7 +59,9 @@ namespace SistemasDeTarefas.Repositories
             _context.Usuarios.Update(usuarioId);
             await _context.SaveChangesAsync();
 
-            return usuarioId;
+            var usuarioDTO = _mapper.Map<UsuarioDTO>(usuarioId);
+
+            return usuarioDTO;
         }
 
         public async Task<bool> Delete(int id)

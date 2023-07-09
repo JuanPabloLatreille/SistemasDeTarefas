@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemasDeTarefas.Models;
+using SistemasDeTarefas.Models.DTOs;
 using SistemasDeTarefas.Repositories;
 using SistemasDeTarefas.Repositories.Interfaces;
 
@@ -32,16 +33,16 @@ namespace SistemasDeTarefas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TarefaModel>> AddTarefa([FromBody] TarefaModel tarefaModel)
+        public async Task<ActionResult<TarefaModel>> AddTarefa([FromBody] TarefaDTO tarefaDTO)
         {
-            var tarefa = await _tarefaRepository.Add(tarefaModel);
+            var tarefa = await _tarefaRepository.Add(tarefaDTO);
             return Ok(tarefa);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TarefaModel>> UpdateTarefa([FromBody] TarefaModel tarefaModel, int id)
+        public async Task<ActionResult<TarefaModel>> UpdateTarefa([FromBody] TarefaDTO tarefaDTO, int id)
         {
-            var tarefa = await _tarefaRepository.Update(tarefaModel, id);
+            var tarefa = await _tarefaRepository.Update(tarefaDTO, id);
             return Ok(tarefa);
         }
 

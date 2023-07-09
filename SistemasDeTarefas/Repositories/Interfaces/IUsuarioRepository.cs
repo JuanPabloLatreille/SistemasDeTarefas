@@ -1,4 +1,5 @@
 ﻿using SistemasDeTarefas.Models;
+using SistemasDeTarefas.Models.DTOs;
 
 namespace SistemasDeTarefas.Repositories.Interfaces
 {
@@ -6,8 +7,8 @@ namespace SistemasDeTarefas.Repositories.Interfaces
     {
         Task<List<UsuarioModel>> GetAllUsuarios();
         Task<UsuarioModel> GetById(int id);
-        Task<UsuarioModel> Add(UsuarioModel usuario);
-        Task<UsuarioModel> Update(UsuarioModel usuario, int id);
+        Task<UsuarioDTO> Add(UsuarioDTO usuario);
+        Task<UsuarioDTO> Update(UsuarioDTO usuario, int id);
         Task<bool> Delete(int id);
     }
 }
