@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemasDeTarefas.Data;
 using SistemasDeTarefas.Models;
+using SistemasDeTarefas.Models.DTOs;
 using SistemasDeTarefas.Repositories.Interfaces;
 
 namespace SistemasDeTarefas.Controllers
@@ -32,14 +34,14 @@ namespace SistemasDeTarefas.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<UsuarioModel>> AddUsuario([FromBody] UsuarioModel usuarioModel)
+        public async Task<ActionResult<UsuarioModel>> AddUsuario([FromBody] UsuarioDTO usuarioModel)
         {
             var usuario = await _usuarioRepository.Add(usuarioModel);
             return Ok(usuario);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<UsuarioModel>> UpdateUsuario([FromBody] UsuarioModel usuarioModel, int id)
+        public async Task<ActionResult<UsuarioModel>> UpdateUsuario([FromBody] UsuarioDTO usuarioModel, int id)
         {
             var usuario = await _usuarioRepository.Update(usuarioModel, id);
             return Ok(usuario);

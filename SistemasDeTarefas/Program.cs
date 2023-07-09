@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SistemasDeTarefas.Data;
+using SistemasDeTarefas.Mappings;
 using SistemasDeTarefas.Repositories;
 using SistemasDeTarefas.Repositories.Interfaces;
 
@@ -24,6 +25,8 @@ namespace SistemasDeTarefas
 
             builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             builder.Services.AddScoped<ITarefaRepository, TarefaRepository>();
+
+            builder.Services.AddAutoMapper(typeof(EntitiesToDTOMappingProfile));
 
             var app = builder.Build();
 
